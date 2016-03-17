@@ -1,0 +1,27 @@
+<head>
+  <title>IoT Receiver</title>
+</head>
+
+<body>
+  <div class="container">
+    <header>
+      <h1>Data from devices</h1>
+      {{> debug}}
+    </header>
+    <p>
+        Packets received: {{count}}
+    </p>
+    {{> dataListComponent}}
+  </div>
+</body>
+
+<template name="debug">
+    <button type="button" id="add">Add new</button>
+    <button type="button" id="reset">Reset</button>
+</template>
+
+<template name="dataListComponent">
+    {{#each dataSet}}
+      <li><span class="gray">#{{counter(@index)}}</span>   {{timeFormat(createdAt)}} <span class="gray">(sensor->server: {{diff}}ms, end-to-end: {{currentDiff(timeSent)}}ms)</span>   Value: {{value}}</li>
+    {{/each}}
+</template>
