@@ -1,16 +1,25 @@
 import './client-view.html';
 
+import { Meteor } from 'meteor/meteor';
+import { Template } from 'meteor/templating';
+import { ReactiveDict } from 'meteor/reactive-dict';
+
+import { DeviceData } from '../../imports/api/collections.js';
+
 Template.dataListComponent.onCreated(function(){
-    Meteor.subscribe('tasks');
+    Meteor.subscribe('deviceData');
 });
 
 Template.dataListComponent.helpers({
     dataSet: function(){
-        return DeviceData.find({}, {sort: {createdAt: -1}, limit: 10});
+        var test = DeviceData.find();
+        // var test = "dust";
+        console.log(test);
+        return test;
     },
 
     counter: function(arg){
-        return DeviceData.find({}).count() - arg;
+        // return DeviceData.find({}).count() - arg;
     },
 
     resultRendered: function(id){
@@ -41,7 +50,7 @@ Template.dataListComponent.helpers({
 
 Template.body.helpers({
     count: function(){
-        return DeviceData.find({}).count();
+        // return DeviceData.find({}).count();
     }
 });
 
