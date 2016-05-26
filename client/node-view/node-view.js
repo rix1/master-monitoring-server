@@ -3,7 +3,7 @@
 // import { io } from 'socketio';
 
 // const SerialPort = serialport.SerialPort;
-const deviceManufacturer = 'SEGGER';
+// const deviceManufacturer = 'SEGGER';
 const timeSyncServer = 'http://10.24.20.161:8081';
 
 Template.nodeView.onCreated(function () {
@@ -35,15 +35,36 @@ Template.nodeView.onCreated(function () {
 Template.nodeView.onRendered(function () {
 	console.log("template rendered");
 
-	var socket1 = io('http://10.24.20.161:8081');
+	$.getScript('https://cdn.socket.io/socket.io-1.4.5.js', function(){
+		console.log("socketio loaded");
 
-	var ts = timesync.create({
-		server: socket1,
-		interval: 5000
+		$.getScript('http://folk.ntnu.no/rikardbe/time-sync/timesync.min.js', function(){
+			console.log('timesync loaded');
+
+			let socket1 = io(timeSyncServer);
+
+			let ts = timesync.create({
+				server: socket1,
+				interval: 5000
+			});
+
+			Meteor.setInterval(function () {
+				// let now = new Date(ts.now());
+				console.log(ts.now());
+			}, 1000);
+
+		});
 	});
 
-	Meteor.setInterval(function () {
-		var now = new Date(ts.now());
-		console.log(ts.now());
-	}, 1000);
+	// var socket1 = io('http://10.24.20.161:8081');
+	//
+	// var ts = timesync.create({
+	// 	server: socket1,
+	// 	interval: 5000
+	// });
+	//
+	// Meteor.setInterval(function () {
+	// 	var now = new Date(ts.now());
+	// 	console.log(ts.now());
+	// }, 1000);
 });
