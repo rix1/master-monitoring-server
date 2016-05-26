@@ -20,7 +20,7 @@
     "bufferutil": "^1.2.1",
     "meteor-node-stubs": "^0.2.3",
     "serialport": "^3.1.2",
-    "socketio": "^1.0.0",
+    "socket.io-client": "^1.4.6",
     "timesync": "^0.2.0",
     "utf-8-validate": "^1.2.1"
   }

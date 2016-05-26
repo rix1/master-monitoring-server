@@ -1,9 +1,27 @@
 Meteor.methods({
     helloMeteor(arg, arg2){
-        console.log("Hello From client");
         console.log(arg);
 		console.log(arg2);
         return "Thank you very much";
+    },
+
+    registerEvent(message){
+        console.log(message);
+
+        // Message format: {
+            // _id: 'auow8bWhwoEZZBYuW',
+            // msgid: '170',
+            // timestamp: 1464280159989,
+            // eventtype: 'send',
+            // clinetid: 'ble_node'
+        //}
+
+        try {
+            let documentId = Events.insert(message);
+        } catch( exception ) {
+            console.log(exception);
+            return exception;
+        }
     },
 
     findData(){

@@ -1,3 +1,9 @@
+import './client-view.html';
+
+Template.dataListComponent.onCreated(function(){
+    Meteor.subscribe('tasks');
+});
+
 Template.dataListComponent.helpers({
     dataSet: function(){
         return DeviceData.find({}, {sort: {createdAt: -1}, limit: 10});
@@ -5,6 +11,11 @@ Template.dataListComponent.helpers({
 
     counter: function(arg){
         return DeviceData.find({}).count() - arg;
+    },
+
+    resultRendered: function(id){
+        console.log("rendered result",id);
+        return "";
     },
 
     timeFormat(duration){

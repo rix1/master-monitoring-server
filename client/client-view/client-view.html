@@ -16,6 +16,6 @@
 
 <template name="dataListComponent">
     {{#each dataSet}}
-      <li><span class="gray">#{{counter(@index)}}</span>   {{timeFormat(createdAt)}} <span class="gray">(sensor->server: {{diff}}ms, end-to-end: {{currentDiff(timeSent)}}ms)</span>   Value: {{value}}</li>
+      <li><span class="gray">#{{counter(@index)}}</span>   {{timeFormat(createdAt)}} <span class="gray">(sensor->server: {{diff}}ms, end-to-end: {{currentDiff(timeSent)}}ms)</span>   Value: {{value}} {{resultRendered @index}}</li>
     {{/each}}
 </template>
