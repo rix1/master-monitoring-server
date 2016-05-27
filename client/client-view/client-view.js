@@ -56,8 +56,7 @@ Template.dataListComponent.onRendered(function(){
 
 Template.dataListComponent.helpers({
     dataSet: function(){
-        var test = DeviceData.find({}, {sort: {reachedServer: -1}});
-        return test;
+        return DeviceData.find({}, {sort: {reachedServer: -1}});
     },
 
     counter: function(arg){
