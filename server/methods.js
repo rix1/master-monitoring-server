@@ -1,3 +1,6 @@
+import { DeviceData, Events } from '../imports/api/collections'
+// import { Meteor } from 'meteor/meteor';
+
 Meteor.methods({
     helloMeteor(arg, arg2){
         console.log(arg);
@@ -18,6 +21,7 @@ Meteor.methods({
 
         try {
             let documentId = Events.insert(message);
+            return "ay-ok";
         } catch( exception ) {
             console.log(exception);
             return exception;
@@ -31,14 +35,11 @@ Meteor.methods({
     addData(value, timestamp){
 		var now = Date.now();
 		var prev = Date.parse(timestamp);
-		var timeDiff = now - prev;
-		// console.log("Prev: " + prev + " now: "+ now + " diff: "+ timeDiff);
 
         var newData = {
 			value: value,
-			timeSent: timestamp,
-			createdAt: now,
-			diff: timeDiff
+			reachedServer: now,
+            sentFromGateway: prev,
         };
         try {
             var documentId = DeviceData.insert( newData );

@@ -9,7 +9,7 @@ export const Events = new Mongo.Collection('events');
 
 if(Meteor.isServer){
 	Meteor.publish('deviceData', function devicePublication() {
-		return DeviceData.find({}, {sort: {createdAt: -1}, limit: 10});
+		return DeviceData.find({}, {sort: {reachedServer: -1}, limit: 10});
 		// return "Gunnar";
 	});
 }

@@ -4,27 +4,64 @@ import { Meteor } from 'meteor/meteor';
 import { Template } from 'meteor/templating';
 import { ReactiveDict } from 'meteor/reactive-dict';
 
-import { DeviceData } from '../../imports/api/collections.js';
+import { Events, DeviceData } from '../../imports/api/collections.js';
+
+const timesync = require('timesync');
+const io = require('socket.io-client');
+
+const timeSyncServer = '129.241.103.248:8081';
+
+let socket1 = io(timeSyncServer);
+
+let syncedTime = timesync.create({
+    server: socket1,
+    interval: 5000
+});
+
+
+(function() {
+    var initializing = true;
+    DeviceData.find().observeChanges({
+        added: function(id, doc) {
+            if (!initializing) {
+                console.log();
+                console.log(doc);
+                let data = {
+                    "msg_id" : doc.value,
+                    "timestamp" : syncedTime.now(),
+                    "eventtype" : "receive",
+                    "clinet_id" : Meteor.default_connection._lastSessionId
+                }
+
+                Meteor.call('registerEvent', data, (error, data) =>{
+                    if(error){
+                        console.log(error);
+                    };
+                    console.log(data);
+                })
+            }
+        }
+    });
+    initializing = false;
+})();
 
 Template.dataListComponent.onCreated(function(){
     Meteor.subscribe('deviceData');
+    this.state = new ReactiveDict();
 });
+
+Template.dataListComponent.onRendered(function(){
+    const instance = this;
+})
 
 Template.dataListComponent.helpers({
     dataSet: function(){
-        var test = DeviceData.find();
-        // var test = "dust";
-        console.log(test);
+        var test = DeviceData.find({}, {sort: {reachedServer: -1}});
         return test;
     },
 
     counter: function(arg){
-        // return DeviceData.find({}).count() - arg;
-    },
-
-    resultRendered: function(id){
-        console.log("rendered result",id);
-        return "";
+        return DeviceData.find({}).count() - arg;
     },
 
     timeFormat(duration){
@@ -63,20 +100,20 @@ Template.debug.events({
                 console.log(error);
             };
             console.log("DB deleted " + data + " items");
+            console.log(data);
         })
     },
 
     'click #add': function(){
         console.log("add clickd");
         var msg = {
-            value: 321,
+            value: Math.floor(Math.random()*10),
             timeSent: Date.now()
         };
         Meteor.call( 'addData', msg.value, msg.timeSent, ( error, data ) => {
             if ( error ) {
                 console.log( error );
             }
-            console.log(data);
         });
     }
 });
