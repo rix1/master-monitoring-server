@@ -20,16 +20,16 @@ import { Events, DeviceData } from '../../imports/api/collections.js';
                     "msg_id" : doc.value,
                     "timestamp" : TimeSync.serverTime(Date.now(), 1000),
                     "eventtype" : "receive",
-                    "clinet_id" : Meteor.default_connection._lastSessionId
+                    "client_id" : 'Meteor.default_connection._lastSessionId'
                 }
-                console.log("SENDING THE FOLLOWING");
-                console.log(data);
+                // console.log("SENDING THE FOLLOWING");
+                // console.log(data);
 
                 Meteor.call('registerEvent', data, (error, data) =>{
                     if(error){
                         console.log(error);
                     };
-                    console.log(data);
+                    // console.log(data);
                 })
             }
         }
