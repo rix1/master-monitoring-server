@@ -10,7 +10,7 @@ const timesync = require('timesync');
 const io = require('socket.io-client');
 
 // MBP
-const mbp = '129.241.103.248:8081/timesync';
+const mbp = '129.241.103.248:8123/timesync';
 // master
 const master = '129.241.102.116:8123/timesync';
 
