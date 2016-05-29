@@ -10,17 +10,9 @@ Meteor.methods({
 
     registerEvent(message){
         console.log("new msg from: " + message.client_id + " : "+ message.msg_id +": " + message.timestamp);
-
-        // Message format: {
-            // _id: 'auow8bWhwoEZZBYuW',
-            // msg_id: '170',
-            // timestamp: 1464280159989,
-            // eventtype: 'send',
-            // clinet_id: 'ble_node'
-        //}
-
         try {
             let documentId = Events.insert(message);
+            return "Event inserted"
         } catch( exception ) {
             console.log(exception);
             return exception;
@@ -33,12 +25,12 @@ Meteor.methods({
 
     addData(value, timestamp){
 		var now = Date.now();
-		var prev = Date.parse(timestamp);
+		// var prev = Date.parse(timestamp);
 
         var newData = {
 			value: value,
 			reachedServer: now,
-            sentFromGateway: prev,
+            sentFromGateway: timestamp,
         };
         try {
             var documentId = DeviceData.insert( newData );

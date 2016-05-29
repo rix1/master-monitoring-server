@@ -14,10 +14,10 @@ const mbp = '129.241.103.248:8123/timesync';
 // master
 const master = '129.241.102.116:8123/timesync';
 
-let socket = io(master);
+// let socket = io(master);
 
 let syncedTime = timesync.create({
-    server: socket,
+    server: master,
     interval: 5000
 });
 
@@ -31,7 +31,6 @@ Meteor.setTimeout(function(){
     DeviceData.find().observeChanges({
         added: function(id, doc) {
             if (!initializing) {
-                console.log();
                 console.log(doc);
                 let data = {
                     "msg_id" : doc.value,
@@ -39,13 +38,15 @@ Meteor.setTimeout(function(){
                     "eventtype" : "receive",
                     "clinet_id" : Meteor.default_connection._lastSessionId
                 }
+                console.log("SENDING THE FOLLOWING");
+                console.log(data);
 
-                Meteor.call('registerEvent', data, (error, data) =>{
-                    if(error){
-                        console.log(error);
-                    };
-                    console.log(data);
-                })
+                // Meteor.call('registerEvent', data, (error, data) =>{
+                //     if(error){
+                //         console.log(error);
+                //     };
+                //     console.log(data);
+                // })
             }
         }
     });
