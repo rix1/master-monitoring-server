@@ -9,7 +9,7 @@ import { Events, DeviceData } from '../../imports/api/collections.js';
 const timesync = require('timesync');
 const io = require('socket.io-client');
 
-const timeSyncServer = '129.241.103.248:8081';
+const timeSyncServer = '129.241.102.116:8123';
 
 let socket1 = io(timeSyncServer);
 
