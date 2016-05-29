@@ -9,7 +9,7 @@ Meteor.methods({
     },
 
     registerEvent(message){
-        console.log(message);
+        console.log("new msg from: " + message.client_id);
 
         // Message format: {
             // _id: 'auow8bWhwoEZZBYuW',
@@ -21,7 +21,6 @@ Meteor.methods({
 
         try {
             let documentId = Events.insert(message);
-            return "ay-ok";
         } catch( exception ) {
             console.log(exception);
             return exception;
