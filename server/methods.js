@@ -9,14 +9,14 @@ Meteor.methods({
     },
 
     registerEvent(message){
-        console.log("new msg from: " + message.client_id);
+        console.log("new msg from: " + message.client_id + " : "+ message.msg_id +": " + message.timestamp);
 
         // Message format: {
             // _id: 'auow8bWhwoEZZBYuW',
-            // msgid: '170',
+            // msg_id: '170',
             // timestamp: 1464280159989,
             // eventtype: 'send',
-            // clinetid: 'ble_node'
+            // clinet_id: 'ble_node'
         //}
 
         try {
