@@ -6,6 +6,12 @@ import { ReactiveDict } from 'meteor/reactive-dict';
 
 import { Events, DeviceData } from '../../imports/api/collections.js';
 
+let syncedTime = TimeSync.serverTime(Date.now(), updateInterval);
+
+Meteor.setInterval(function(){
+    console.log('remote: ' + syncedTime + ' local: ' + Date.now());
+}, 1000);
+
 (function() {
     var initializing = true;
     DeviceData.find().observeChanges({
@@ -14,7 +20,7 @@ import { Events, DeviceData } from '../../imports/api/collections.js';
                 // console.log(doc);
                 let data = {
                     "msg_id" : doc.value,
-                    "timestamp" : Date.now(),
+                    "timestamp" : syncedTime,
                     "eventtype" : "receive",
                     "clinet_id" : Meteor.default_connection._lastSessionId
                 }
