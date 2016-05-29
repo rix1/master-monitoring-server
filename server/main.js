@@ -1,6 +1,6 @@
 import { Meteor } from 'meteor/meteor'
 
-import {Events, DeviceData} '../imports/api/collections.js';
+import {Events, DeviceData} from '../imports/api/collections.js';
 
 
 Meteor.startup(function(){
