@@ -9,7 +9,10 @@ import { Events, DeviceData } from '../../imports/api/collections.js';
 const timesync = require('timesync');
 const io = require('socket.io-client');
 
-const timeSyncServer = '129.241.102.116:8123';
+// MBP
+const timeSyncServer = '129.241.103.248:8081/timesync';
+//
+// const timeSyncServer = '129.241.102.116:8123/timesync';
 
 let socket1 = io(timeSyncServer);
 
@@ -17,6 +20,10 @@ let syncedTime = timesync.create({
     server: socket1,
     interval: 5000
 });
+
+Meteor.setTimeout(function(){
+    console.log('remote: ' + syncedTime.now() + ' local: ' + Date.now());
+},1000);
 
 
 (function() {
