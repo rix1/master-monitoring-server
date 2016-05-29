@@ -25,12 +25,12 @@ import { Events, DeviceData } from '../../imports/api/collections.js';
                 console.log("SENDING THE FOLLOWING");
                 console.log(data);
 
-                // Meteor.call('registerEvent', data, (error, data) =>{
-                //     if(error){
-                //         console.log(error);
-                //     };
-                //     console.log(data);
-                // })
+                Meteor.call('registerEvent', data, (error, data) =>{
+                    if(error){
+                        console.log(error);
+                    };
+                    console.log(data);
+                })
             }
         }
     });
