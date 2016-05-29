@@ -6,26 +6,6 @@ import { ReactiveDict } from 'meteor/reactive-dict';
 
 import { Events, DeviceData } from '../../imports/api/collections.js';
 
-const timesync = require('timesync');
-const io = require('socket.io-client');
-
-// MBP
-const mbp = 'http://129.241.103.248:8123/timesync';
-// master
-const master = 'http://129.241.102.116:8123/timesync';
-
-// let socket = io(master);
-
-let syncedTime = timesync.create({
-    peers: master,
-    interval: 5000
-});
-
-Meteor.setTimeout(function(){
-    console.log('remote: ' + syncedTime.now() + ' local: ' + Date.now());
-},1000);
-
-
 (function() {
     var initializing = true;
     DeviceData.find().observeChanges({
@@ -34,7 +14,7 @@ Meteor.setTimeout(function(){
                 // console.log(doc);
                 let data = {
                     "msg_id" : doc.value,
-                    "timestamp" : syncedTime.now(),
+                    "timestamp" : Date.now(),
                     "eventtype" : "receive",
                     "clinet_id" : Meteor.default_connection._lastSessionId
                 }
