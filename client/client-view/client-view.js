@@ -20,7 +20,7 @@ import { Events, DeviceData } from '../../imports/api/collections.js';
                     "msg_id" : doc.value,
                     "timestamp" : TimeSync.serverTime(Date.now(), 1000),
                     "eventtype" : "receive",
-                    "client_id" : 'Meteor.default_connection._lastSessionId'
+                    "client_id" : Meteor.default_connection._lastSessionId
                 }
                 // console.log("SENDING THE FOLLOWING");
                 // console.log(data);
